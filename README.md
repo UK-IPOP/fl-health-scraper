@@ -1,2 +1,2 @@
 # fl-health-scraper
-FL Health Opiod Use Dashboard Web Scraper
+FL Health Opioid Use Dashboard Web Scraper
