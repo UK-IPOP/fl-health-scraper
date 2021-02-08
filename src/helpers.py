@@ -76,11 +76,31 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
     return data
 
 
-def format_data(data: dict[str, list[str]]) -> pd.DataFrame:
-    return pd.DataFrame.from_dict(data)
+def format_data(data: dict[str, list[str]], year: int, county: str) -> pd.DataFrame:
+    df = pd.DataFrame.from_dict(data)
+    df["Year"] = year
+    df["County"] = county
+    return df
 
 
 def export_data(df: pd.DataFrame, year: int, county_name: str) -> None:
     if not os.path.exists(f"data/{year}"):
         os.mkdir(f"data/{year}")
     df.to_csv(f"data/{year}/{county_name}.csv", index=False)
+
+
+def generate_file_names() -> list[str]:
+    file_names = []
+    for year in YEARS:
+        for name, id in COUNTIES.items():
+            file_names.append(f"data/{year}/{name}.csv")
+    return file_names
+
+
+def combine_files():
+    return pd.concat((pd.read_csv(f) for f in generate_file_names()))
+
+
+def export_single_file():
+    df = combine_files()
+    df.to_csv("data/composite.csv", index=False)
