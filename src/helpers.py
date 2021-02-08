@@ -4,6 +4,8 @@ import pandas as pd
 
 import re
 import pprint
+import os
+
 
 """Base url for requests."""
 URL = "http://www.flhealthcharts.com/ChartsReports/rdPage.aspx?rdReport=ChartsProfiles.OpioidUseDashboard"
@@ -79,4 +81,6 @@ def format_data(data: dict[str, list[str]]) -> pd.DataFrame:
 
 
 def export_data(df: pd.DataFrame, year: int, county_name: str) -> None:
+    if not os.path.exists(f"data/{year}"):
+        os.mkdir(f"data/{year}")
     df.to_csv(f"data/{year}/{county_name}.csv", index=False)
