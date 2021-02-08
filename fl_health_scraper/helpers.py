@@ -1,10 +1,8 @@
-from typing import Union
 from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
 import re
-import pprint
 import os
 
 
@@ -119,7 +117,6 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
     }
 
     # get table data directly using regex compiled 'id' attribute
-    # must do for each title
     regex_columns: list[str] = [
         "colIndTitle_Row",
         "colMeasure_Row",
@@ -142,14 +139,10 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
     return data
 
 
-def format_data(data: dict[str, list[str]], year: int, county: str) -> pd.DataFrame:
+def export_data(data: dict[str, list[str]], year: int, county_name: str) -> None:
     df = pd.DataFrame.from_dict(data)
     df["Year"] = year
-    df["County"] = county
-    return df
-
-
-def export_data(df: pd.DataFrame, year: int, county_name: str) -> None:
+    df["County"] = county_name
     if not os.path.exists(f"data/{year}"):
         os.mkdir(f"data/{year}")
     df.to_csv(f"data/{year}/{county_name}.csv", index=False)
@@ -158,15 +151,19 @@ def export_data(df: pd.DataFrame, year: int, county_name: str) -> None:
 def generate_file_names() -> list[str]:
     file_names = []
     for year in YEARS:
-        for name, id in COUNTIES.items():
+        for name, _ in COUNTIES.items():
             file_names.append(f"data/{year}/{name}.csv")
     return file_names
 
 
-def combine_files():
-    return pd.concat((pd.read_csv(f) for f in generate_file_names()))
+def combine_files() -> None:
+    large_df = pd.concat((pd.read_csv(f) for f in generate_file_names()))
+    large_df.to_csv("data/composite.csv", index=False)
 
 
-def export_single_file():
-    df = combine_files()
-    df.to_csv("data/composite.csv", index=False)
+def gather_data():
+    for year in YEARS:
+        for name, id in COUNTIES.items():
+            site_content = visit_site(URL, id, year)
+            site_data = scrape_site(site_content)
+            export_data(data=site_data, year=year, county_name=name)
