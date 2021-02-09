@@ -1,0 +1,944 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>API Reference - Florida Health Charts Web Scraper</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sample-mkdocstrings" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Florida Health Charts Web Scraper" class="md-header-nav__button md-logo" aria-label="Florida Health Charts Web Scraper">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Florida Health Charts Web Scraper
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Florida Health Charts Web Scraper" class="md-nav__button md-logo" aria-label="Florida Health Charts Web Scraper">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Florida Health Charts Web Scraper
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        API Reference
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants" class="md-nav__link">
+    constants
+  </a>
+  
+    <nav class="md-nav" aria-label="constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants.COUNTIES" class="md-nav__link">
+    COUNTIES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants.URL" class="md-nav__link">
+    URL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants.YEARS" class="md-nav__link">
+    YEARS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fl_health_scraper.core" class="md-nav__link">
+    core
+  </a>
+  
+    <nav class="md-nav" aria-label="core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.combine_files" class="md-nav__link">
+    combine_files()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.export_data" class="md-nav__link">
+    export_data()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.gather_data" class="md-nav__link">
+    gather_data()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.generate_file_names" class="md-nav__link">
+    generate_file_names()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.scrape_site" class="md-nav__link">
+    scrape_site()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.visit_site" class="md-nav__link">
+    visit_site()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules" class="md-nav__link">
+    Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants" class="md-nav__link">
+    constants
+  </a>
+  
+    <nav class="md-nav" aria-label="constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants.COUNTIES" class="md-nav__link">
+    COUNTIES
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants.URL" class="md-nav__link">
+    URL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.constants.YEARS" class="md-nav__link">
+    YEARS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fl_health_scraper.core" class="md-nav__link">
+    core
+  </a>
+  
+    <nav class="md-nav" aria-label="core">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.combine_files" class="md-nav__link">
+    combine_files()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.export_data" class="md-nav__link">
+    export_data()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.gather_data" class="md-nav__link">
+    gather_data()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.generate_file_names" class="md-nav__link">
+    generate_file_names()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.scrape_site" class="md-nav__link">
+    scrape_site()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fl_health_scraper.core.visit_site" class="md-nav__link">
+    visit_site()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="sample-mkdocstrings">Sample Mkdocstrings</h1>
+<h2 id="modules">Modules</h2>
+<div class="doc doc-object doc-module">
+<h2 class="doc doc-heading" id="fl_health_scraper.constants">
+
+        <code>fl_health_scraper.constants</code>
+
+
+
+      </h2>
+<div class="doc doc-contents first">
+<p>This module contains globals for the entire project.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="fl_health_scraper.constants.COUNTIES">
+
+<code class="highlight language-python"><span class="n">COUNTIES</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>A dict of county names and their form values.</p>
+</div>
+</div>
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="fl_health_scraper.constants.URL">
+
+<code class="highlight language-python"><span class="n">URL</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Base url for requests.</p>
+</div>
+</div>
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="fl_health_scraper.constants.YEARS">
+
+<code class="highlight language-python"><span class="n">YEARS</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Years to query for.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-module">
+<h2 class="doc doc-heading" id="fl_health_scraper.core">
+
+        <code>fl_health_scraper.core</code>
+
+
+
+      </h2>
+<div class="doc doc-contents first">
+<p>This module is the core functionality of the scraper.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-function">
+<h3 class="doc doc-heading" id="fl_health_scraper.core.combine_files">
+
+<code class="highlight language-python"><span class="n">combine_files</span><span class="p">()</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Combines all of the individual files into one composite file.</p>
+<details class="quote">
+          <summary>Source code in <code>fl_health_scraper/core.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">combine_files</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Combines all of the individual files into one composite file."""</span>
+    <span class="n">large_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">generate_file_names</span><span class="p">()))</span>
+    <span class="n">new_col_order</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"Year"</span><span class="p">,</span>
+        <span class="s2">"County"</span><span class="p">,</span>
+        <span class="s2">"Indicator"</span><span class="p">,</span>
+        <span class="s2">"Measure"</span><span class="p">,</span>
+        <span class="s2">"Jan-Mar"</span><span class="p">,</span>
+        <span class="s2">"Apr-June"</span><span class="p">,</span>
+        <span class="s2">"July-Sep"</span><span class="p">,</span>
+        <span class="s2">"Oct-Dec"</span><span class="p">,</span>
+        <span class="s2">"Year-to-Date"</span><span class="p">,</span>
+        <span class="s2">"Case Definition"</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">reordered_df</span> <span class="o">=</span> <span class="n">large_df</span><span class="p">[</span><span class="n">new_col_order</span><span class="p">]</span>
+    <span class="n">reordered_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"composite.csv"</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h3 class="doc doc-heading" id="fl_health_scraper.core.export_data">
+
+<code class="highlight language-python"><span class="n">export_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">county_name</span><span class="p">)</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Exports data to a file.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>data</code></td>
+<td><code>dict</code></td>
+<td>
+<p>data scraped from website</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>year</code></td>
+<td><code>int</code></td>
+<td>
+<p>year of dataset</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>county_name</code></td>
+<td><code>str</code></td>
+<td>
+<p>county name of dataset</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>fl_health_scraper/core.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">export_data</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">county_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Exports data to a file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data: data scraped from website</span>
+<span class="sd">        year: year of dataset</span>
+<span class="sd">        county_name: county name of dataset</span>
+
+<span class="sd">    """</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"Year"</span><span class="p">]</span> <span class="o">=</span> <span class="n">year</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"County"</span><span class="p">]</span> <span class="o">=</span> <span class="n">county_name</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">county_name</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h3 class="doc doc-heading" id="fl_health_scraper.core.gather_data">
+
+<code class="highlight language-python"><span class="n">gather_data</span><span class="p">()</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Runs entire pipeline of visiting site, scraping data, and exporting data.</p>
+<details class="quote">
+          <summary>Source code in <code>fl_health_scraper/core.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">gather_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Runs entire pipeline of visiting site, scraping data, and exporting data."""</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">YEARS</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Getting data for </span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2"> -- </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">YEARS</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">COUNTIES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">site_content</span> <span class="o">=</span> <span class="n">visit_site</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+            <span class="n">site_data</span> <span class="o">=</span> <span class="n">scrape_site</span><span class="p">(</span><span class="n">site_content</span><span class="p">)</span>
+            <span class="n">export_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">site_data</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span> <span class="n">county_name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h3 class="doc doc-heading" id="fl_health_scraper.core.generate_file_names">
+
+<code class="highlight language-python"><span class="n">generate_file_names</span><span class="p">()</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Generates filenames for export using YEARS and COUNTIES globals.</p>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list</code></td>
+<td>
+<p>list[str]: list of filepaths/filenames.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>fl_health_scraper/core.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">generate_file_names</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">"""Generates filenames for export using YEARS and COUNTIES globals.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list[str]: list of filepaths/filenames.</span>
+
+<span class="sd">    """</span>
+    <span class="n">file_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">YEARS</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">COUNTIES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">file_names</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h3 class="doc doc-heading" id="fl_health_scraper.core.scrape_site">
+
+<code class="highlight language-python"><span class="n">scrape_site</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Scrapes webpage content.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>content</code></td>
+<td><code>bytes</code></td>
+<td>
+<p>website content from response object</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dict</code></td>
+<td>
+<p>dict[str, list[str]]: dictionary of column names and data scraped from the web-table</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>fl_health_scraper/core.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">scrape_site</span><span class="p">(</span><span class="n">content</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">"""Scrapes webpage content.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        content: website content from response object</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict[str, list[str]]: dictionary of column names and data scraped from the web-table</span>
+
+<span class="sd">    """</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"dtOpioidProfile"</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"Indicator"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Measure"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Year"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Jan-Mar"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Apr-June"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"July-Sep"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Oct-Dec"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Year-to-Date"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"Case Definition"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">}</span>
+
+    <span class="c1"># get table data directly using regex compiled 'id' attribute</span>
+    <span class="n">regex_columns</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"colIndTitle_Row"</span><span class="p">,</span>
+        <span class="s2">"colMeasure_Row"</span><span class="p">,</span>
+        <span class="s2">"colYear_Row"</span><span class="p">,</span>
+        <span class="s2">"colQuarter1_Row"</span><span class="p">,</span>
+        <span class="s2">"colQuarter2_Row"</span><span class="p">,</span>
+        <span class="s2">"colQuarter3_Row"</span><span class="p">,</span>
+        <span class="s2">"colQuarter4_Row"</span><span class="p">,</span>
+        <span class="s2">"colAnnual_Row"</span><span class="p">,</span>
+        <span class="s2">"colCaseDefinition_Row"</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="c1"># these loops can be improved (readability, refactored into funcs etc.)</span>
+    <span class="k">for</span> <span class="n">field</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">regex_columns</span><span class="p">):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">field</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">"</span><span class="p">))]}</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h3 class="doc doc-heading" id="fl_health_scraper.core.visit_site">
+
+<code class="highlight language-python"><span class="n">visit_site</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">county_id</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span></code>
+
+
+      </h3>
+<div class="doc doc-contents ">
+<p>Visit a specified site using post-request and return response content.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>url</code></td>
+<td><code>str</code></td>
+<td>
+<p>base url to visit</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>county_id</code></td>
+<td><code>int</code></td>
+<td>
+<p>numeric id of county to query from form data</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>year</code></td>
+<td><code>int</code></td>
+<td>
+<p>year to query in form data</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bytes</code></td>
+<td>
+<p>bytes: response content</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+          <summary>Source code in <code>fl_health_scraper/core.py</code></summary>
+          <div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">visit_site</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">county_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="sd">"""Visit a specified site using post-request and return response content.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url: base url to visit</span>
+<span class="sd">        county_id: numeric id of county to query from form data</span>
+<span class="sd">        year: year to query in form data</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        bytes: response content</span>
+
+<span class="sd">    """</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"islCounty"</span><span class="p">:</span> <span class="n">county_id</span><span class="p">,</span> <span class="s2">"islYears"</span><span class="p">:</span> <span class="n">year</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
