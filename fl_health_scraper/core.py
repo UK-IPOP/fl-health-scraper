@@ -134,8 +134,9 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
 
     # these loops can be improved (readability, refactored into funcs etc.)
     for field, col in zip(data.keys(), regex_columns):
-        data[field] = [r.text.strip() for r in table.find_all(id=re.compile(f"{col}"))]
-
+        data.update(
+            {field: [r.text.strip() for r in table.find_all(id=re.compile(f"{col}"))]}
+        )
     return data
 
 
