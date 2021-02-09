@@ -10,7 +10,7 @@ import os
 from .constants import URL, YEARS, COUNTIES
 
 
-def visit_site(url: str, county_id: int, year: int) -> bytes:
+def visit_site(url: str, county_id: int, year: int) -> requests.Response:
     """Visit a specified site using post-request and return response content.
 
     Args:
@@ -23,11 +23,11 @@ def visit_site(url: str, county_id: int, year: int) -> bytes:
 
     """
     response = requests.post(url, data={"islCounty": county_id, "islYears": year})
-    return response.content
+    return response
 
 
-def scrape_site(content: bytes) -> dict[str, list[str]]:
-    """Scrapes webpage content.
+def scrape_site(web_response: requests.Response) -> dict[str, list[str]]:
+    """Scrapes webpage content from web response context.
 
     Args:
         content: website content from response object
@@ -36,6 +36,7 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
         dict[str, list[str]]: dictionary of column names and data scraped from the web-table
 
     """
+    content = web_response.content
     soup = BeautifulSoup(content, "html.parser")
     table = soup.find(id="dtOpioidProfile")
 
@@ -72,7 +73,11 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
     return data
 
 
-def export_data(data: dict[str, list[str]], year: int, county_name: str) -> None:
+def export_data(
+    data: dict[str, list[str]],
+    county_name: str,
+    year: int,
+) -> pd.DataFrame:
     """Exports data to a file.
 
     Args:
@@ -88,6 +93,7 @@ def export_data(data: dict[str, list[str]], year: int, county_name: str) -> None
     if not os.path.exists(directory):
         os.mkdir(directory)
     df.to_csv(os.path.join(directory, f"{county_name}.csv"), index=False)
+    return df
 
 
 def generate_file_names() -> list[str]:
@@ -104,7 +110,7 @@ def generate_file_names() -> list[str]:
     return file_names
 
 
-def combine_files() -> None:
+def combine_files() -> pd.DataFrame:
     """Combines all of the individual files into one composite file."""
     large_df = pd.concat((pd.read_csv(f) for f in generate_file_names()))
     new_col_order = [
@@ -121,6 +127,7 @@ def combine_files() -> None:
     ]
     reordered_df = large_df[new_col_order]
     reordered_df.to_csv(os.path.join("data", "composite.csv"), index=False)
+    return reordered_df
 
 
 def gather_data() -> None:
