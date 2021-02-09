@@ -95,12 +95,22 @@ def visit_site(url: str, county_id: int, year: int) -> bytes:
 
     Returns:
         bytes: response content
+
     """
     response = requests.post(url, data={"islCounty": county_id, "islYears": year})
     return response.content
 
 
 def scrape_site(content: bytes) -> dict[str, list[str]]:
+    """Scrapes webpage content.
+
+    Args:
+        content: website content from response object
+
+    Returns:
+        dict[str, list[str]]: dictionary of column names and data scraped from the web-table
+
+    """
     soup = BeautifulSoup(content, "html.parser")
     table = soup.find(id="dtOpioidProfile")
 
@@ -129,9 +139,6 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
         "colCaseDefinition_Row",
     ]
 
-    # here we add '_Row' to the cols to make sure we are only accessing the ones inside the table rows
-    # and not in the header
-
     # these loops can be improved (readability, refactored into funcs etc.)
     for field, col in zip(data.keys(), regex_columns):
         data.update(
@@ -141,6 +148,14 @@ def scrape_site(content: bytes) -> dict[str, list[str]]:
 
 
 def export_data(data: dict[str, list[str]], year: int, county_name: str) -> None:
+    """Exports data to a file.
+
+    Args:
+        data: data scraped from website
+        year: year of dataset
+        county_name: county name of dataset
+
+    """
     df = pd.DataFrame.from_dict(data)
     df["Year"] = year
     df["County"] = county_name
@@ -151,6 +166,12 @@ def export_data(data: dict[str, list[str]], year: int, county_name: str) -> None
 
 
 def generate_file_names() -> list[str]:
+    """Generates filenames for export using YEARS and COUNTIES globals.
+
+    Returns:
+        list[str]: list of filepaths/filenames.
+
+    """
     file_names = []
     for year in YEARS:
         for name, _ in COUNTIES.items():
@@ -159,11 +180,26 @@ def generate_file_names() -> list[str]:
 
 
 def combine_files() -> None:
+    """Combines all of the individual files into one composite file."""
     large_df = pd.concat((pd.read_csv(f) for f in generate_file_names()))
-    large_df.to_csv(os.path.join("data", "composite.csv"), index=False)
+    new_col_order = [
+        "Year",
+        "County",
+        "Indicator",
+        "Measure",
+        "Jan-Mar",
+        "Apr-June",
+        "July-Sep",
+        "Oct-Dec",
+        "Year-to-Date",
+        "Case Definition",
+    ]
+    reordered_df = large_df[new_col_order]
+    reordered_df.to_csv(os.path.join("data", "composite.csv"), index=False)
 
 
 def gather_data() -> None:
+    """Runs entire pipeline of visiting site, scraping data, and exporting data."""
     for year in YEARS:
         for name, id in COUNTIES.items():
             site_content = visit_site(URL, id, year)
