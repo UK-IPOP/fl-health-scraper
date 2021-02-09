@@ -1,0 +1,10 @@
+site_name: Florida Health Charts Web Scraper
+nav:
+  - Home: index.md
+  - API Reference: definitions.md
+theme:
+  name: 'material'
+
+plugins:
+  - search
+  - mkdocstrings
