@@ -200,7 +200,8 @@ def combine_files() -> None:
 
 def gather_data() -> None:
     """Runs entire pipeline of visiting site, scraping data, and exporting data."""
-    for year in YEARS:
+    for i, year in enumerate(YEARS):
+        print(f"Getting data for {year} -- {i}/{len(YEARS)}")
         for name, id in COUNTIES.items():
             site_content = visit_site(URL, id, year)
             site_data = scrape_site(site_content)
