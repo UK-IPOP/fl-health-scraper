@@ -143,25 +143,26 @@ def export_data(data: dict[str, list[str]], year: int, county_name: str) -> None
     df = pd.DataFrame.from_dict(data)
     df["Year"] = year
     df["County"] = county_name
-    if not os.path.exists(f"data/{year}"):
-        os.mkdir(f"data/{year}")
-    df.to_csv(f"data/{year}/{county_name}.csv", index=False)
+    directory = os.path.join("data", str(year))
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+    df.to_csv(os.path.join(directory, f"{county_name}.csv"), index=False)
 
 
 def generate_file_names() -> list[str]:
     file_names = []
     for year in YEARS:
         for name, _ in COUNTIES.items():
-            file_names.append(f"data/{year}/{name}.csv")
+            file_names.append(os.path.join("data", str(year), f"{name}.csv"))
     return file_names
 
 
 def combine_files() -> None:
     large_df = pd.concat((pd.read_csv(f) for f in generate_file_names()))
-    large_df.to_csv("data/composite.csv", index=False)
+    large_df.to_csv(os.path.join("data", "composite.csv"), index=False)
 
 
-def gather_data():
+def gather_data() -> None:
     for year in YEARS:
         for name, id in COUNTIES.items():
             site_content = visit_site(URL, id, year)

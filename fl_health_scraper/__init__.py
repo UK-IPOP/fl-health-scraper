@@ -1,1 +1,1 @@
-from api import gather_data, combine_files
+from .core import gather_data, combine_files
