@@ -1,13 +1,13 @@
 """This module is the core functionality of the scraper."""
 
-from bs4 import BeautifulSoup
-import requests
-import pandas as pd
-
-import re
 import os
+import re
 
-from .constants import URL, YEARS, COUNTIES
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+from .constants import COUNTIES, URL, YEARS
 
 
 def visit_site(url: str, county_id: int, year: int) -> requests.Response:
@@ -110,6 +110,23 @@ def generate_file_names() -> list[str]:
     return file_names
 
 
+def remove_files() -> bool:
+    """Removes files and dirs created during scraping process."""
+    year_dirs = [os.path.join("data", str(y)) for y in YEARS]
+    years_dirs_exist = all(os.path.exists(d) for d in year_dirs)
+    if not os.path.exists("data") or not years_dirs_exist:
+        return False
+    else:
+        filenames = generate_file_names()
+        for f in filenames:
+            if os.path.exists(f):
+                os.remove(f)
+        if years_dirs_exist:
+            for d in year_dirs:
+                os.rmdir(d)
+        return True
+
+
 def combine_files() -> pd.DataFrame:
     """Combines all of the individual files into one composite file."""
     large_df = pd.concat((pd.read_csv(f) for f in generate_file_names()))
@@ -130,11 +147,14 @@ def combine_files() -> pd.DataFrame:
     return reordered_df
 
 
-def gather_data() -> None:
+def gather_data() -> pd.DataFrame:
     """Runs entire pipeline of visiting site, scraping data, and exporting data."""
     for i, year in enumerate(YEARS):
-        print(f"Getting data for {year} -- {i}/{len(YEARS)}")
+        print(f"Getting data for {year} -- {i + 1}/{len(YEARS)}")
         for name, id in COUNTIES.items():
             site_content = visit_site(URL, id, year)
             site_data = scrape_site(site_content)
             export_data(data=site_data, year=year, county_name=name)
+    df = combine_files()
+    remove_files()
+    return df

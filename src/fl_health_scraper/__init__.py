@@ -1,1 +1,1 @@
-from .core import combine_files, gather_data
+from .core import gather_data
