@@ -1,10 +1,11 @@
-from fl_health_scraper.constants import URL, COUNTIES, YEARS
-import fl_health_scraper.core as scraper
-from random import choice
 import time
-import pandas as pd
 from collections import namedtuple
+from random import choice
 
+import pandas as pd
+
+import fl_health_scraper.core as scraper
+from fl_health_scraper.constants import COUNTIES, URL, YEARS
 
 Choices = namedtuple("Choice", ["county", "year"])
 
