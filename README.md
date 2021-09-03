@@ -4,7 +4,7 @@
 
 This is the Florida Health Charts Substance Use Dashboard Web Scraper.
 
-API documentation can be found [here](https://UK-IPOP.github.io/fl-health-scraper/).
+It will scrape the FL Health Charts Substance Use Dashboard for 68 counties plus the entire state of Florida from 2015-2021 and output the results into the `results.csv` file.
 
 ## Usage
 
