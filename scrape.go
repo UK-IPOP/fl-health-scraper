@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
-	"github.com/gocolly/colly/v2"
 	"log"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/gocolly/colly/v2"
 )
 
 func main() {
@@ -138,13 +139,12 @@ func main() {
 		}
 	}
 
-	//c.Wait()
+	c.Wait()
 	elapsed := time.Since(start)
 	log.Printf("Scraping took %s", elapsed)
 	log.Println("Writing to file.")
 	writeFile(rows, headers)
 	log.Println("Done.")
-
 }
 
 func buildUrls(countyCodes map[string]int, years []int) []string {
