@@ -168,7 +168,7 @@ func segmentData(data []string) [][]string {
 	subsetRows := rows[1:5]
 	subsetRows = append(subsetRows, rows[6:16]...)
 	subsetRows = append(subsetRows, rows[17:]...)
-	return rows
+	return subsetRows
 }
 
 func writeFile(data [][]string, headers []string) {
