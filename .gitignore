@@ -14,6 +14,12 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-results.csv
 .DS_Store
 .vscode/settings.json
+.idea/.gitignore
+.idea/fl-health-scraper.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+
+output/
