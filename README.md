@@ -1,6 +1,6 @@
 # Florida Health Scraper
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/UK-IPOP/fl-health-scraper.svg)](https://pkg.go.dev/github.com/UK-IPOP/fl-health-scraper)
+<!-- [![Go Reference](https://pkg.go.dev/badge/github.com/UK-IPOP/fl-health-scraper.svg)](https://pkg.go.dev/github.com/UK-IPOP/fl-health-scraper) -->
 
 This is the Florida Health Charts Substance Use Dashboard Web Scraper.
 
