@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path"
+	"strconv"
 	"strings"
 	"time"
 
@@ -13,51 +15,6 @@ import (
 
 func main() {
 	start := time.Now()
-
-	var headers []string
-	var data []string
-	var rows [][]string
-
-	c := colly.NewCollector(
-		colly.Async(true),
-	)
-	c.SetRequestTimeout(50 * time.Second)
-	limitErr := c.Limit(&colly.LimitRule{
-		DomainGlob:  "*",
-		Parallelism: 10,
-		Delay:       1 * time.Second,
-		RandomDelay: 3 * time.Second,
-	})
-	if limitErr != nil {
-		checkError("Could not handle parallel limiter.", limitErr)
-	}
-
-	c.OnError(func(r *colly.Response, err error) {
-		log.Println("Something went wrong:", err)
-	})
-
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting ->", r.URL)
-	})
-
-	c.OnResponse(func(r *colly.Response) {
-		fmt.Println("Visited:", r.Request.URL)
-	})
-
-	c.OnHTML("#dtSubstanceUse thead tr th", func(e *colly.HTMLElement) {
-		if len(headers) <= 8 {
-			headers = append(headers, e.Text)
-		}
-	})
-
-	c.OnHTML("#dtSubstanceUse tbody tr[row] td", func(e *colly.HTMLElement) {
-		data = append(data, e.Text)
-	})
-
-	c.OnScraped(func(r *colly.Response) {
-		// split data into 8 segments
-		rows = append(rows, segmentData(data)...)
-	})
 
 	countyMap := map[string]int{
 		"Florida":      69,
@@ -129,6 +86,64 @@ func main() {
 		"Walton":       66,
 		"Washington":   67,
 	}
+
+	var headers []string
+	var data []string
+
+	c := colly.NewCollector(
+		colly.Async(true),
+	)
+	c.SetRequestTimeout(50 * time.Second)
+	limitErr := c.Limit(&colly.LimitRule{
+		DomainGlob:  "*",
+		Parallelism: 10,
+		Delay:       1 * time.Second,
+		RandomDelay: 3 * time.Second,
+	})
+	if limitErr != nil {
+		checkError("Could not handle parallel limiter.", limitErr)
+	}
+
+	c.OnError(func(r *colly.Response, err error) {
+		log.Println("Something went wrong:", err)
+	})
+
+	c.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting ->", r.URL)
+	})
+
+	c.OnResponse(func(r *colly.Response) {
+		fmt.Println("Visited:", r.Request.URL)
+		// url := r.Request.URL.String()
+		// county, year := parseCountyNameAndYear(url, countyMap)
+		// fpath := path.Join("output", county + "_" + year + ".txt")
+		// f, _ := os.Create(fpath)
+		// f.WriteString(url)
+	})
+
+	c.OnHTML("#dtSubstanceUse", func(e *colly.HTMLElement) {
+		e.ForEach("thead tr th", func(_ int, elem *colly.HTMLElement) {
+			if len(headers) <= 7 {
+				headers = append(headers, elem.Text)
+			}
+		})
+		data = nil
+		e.ForEach("tbody tr[row] td", func(_ int, elem *colly.HTMLElement) {
+			data = append(data, elem.Text)
+		})
+	})
+
+	c.OnScraped(func(r *colly.Response) {
+		// split data into 8 segments
+		splitData := segmentData(data)
+		url := r.Request.URL.String()
+		countyName, year := parseCountyNameAndYear(url, countyMap)
+		fName := countyName + "_" + year
+		log.Println("Writing to file: ", fName)
+		writeFile(splitData, headers, fName)
+	})
+
+
 	years := []int{2015, 2016, 2017, 2018, 2019, 2020, 2021}
 	urls := buildUrls(countyMap, years)
 
@@ -141,10 +156,23 @@ func main() {
 
 	c.Wait()
 	elapsed := time.Since(start)
-	log.Printf("Scraping took %s", elapsed)
-	log.Println("Writing to file.")
-	writeFile(rows, headers)
+	log.Printf("Full scraping took %s", elapsed)
 	log.Println("Done.")
+}
+
+func parseCountyNameAndYear(x string, countyLookup map[string]int) (string, string) {
+	parts := strings.Split(x, "&")
+	part2 := strings.Split(parts[1], "=")
+	countyCode, _ := strconv.Atoi(part2[1])
+	var county string
+	for k, v := range countyLookup {
+		if v == countyCode {
+			county = k
+			break
+		}
+	}
+	part3 := strings.Split(parts[2], "=")
+	return county, part3[1]
 }
 
 func buildUrls(countyCodes map[string]int, years []int) []string {
@@ -165,13 +193,10 @@ func segmentData(data []string) [][]string {
 		row := data[i : i+8]
 		rows = append(rows, row)
 	}
-	subsetRows := rows[1:5]
-	subsetRows = append(subsetRows, rows[6:16]...)
-	subsetRows = append(subsetRows, rows[17:]...)
-	return subsetRows
+	return rows
 }
 
-func writeFile(data [][]string, headers []string) {
+func writeFile(data [][]string, headers []string, fileName string) {
 	// bad version of inserting headers in 0 index
 	var tabularData [][]string
 	tabularData = append(tabularData, headers)
@@ -182,8 +207,10 @@ func writeFile(data [][]string, headers []string) {
 		}
 		tabularData = append(tabularData, cleanRow)
 	}
-
-	file, err := os.Create("results.csv")
+	fullPath := path.Join("output", fileName + ".csv")
+	err := os.MkdirAll("output", os.ModePerm)
+	checkError("could not make directory", err)
+	file, err := os.Create(fullPath)
 	checkError("Cannot create file.", err)
 	writer := csv.NewWriter(file)
 	err2 := writer.WriteAll(tabularData)
