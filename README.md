@@ -8,7 +8,12 @@ It will scrape the FL Health Charts Substance Use Dashboard for 68 counties plus
 
 ## Usage
 
-To use this program just download the correct binary file from the `bin` directory for your operating system and architecture. Currently supported is:
+To use:
 
-- Windows - AMD64
-- MacOS - ARM
+```bash
+git clone https://github.com/UK-IPOP/fl-health-scraper
+cd fl-health-scraper/fl_health_charts
+scrapy crawl opioid_dashboard
+```
+
+Then you can see the output in `fl-health-scraper/data/results.csv`
