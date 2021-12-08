@@ -23,3 +23,8 @@
 .idea/workspace.xml
 
 output/
+fl_health_charts/data/
+
+fl_health_charts/fl_health_charts/__pycache__/
+
+fl_health_charts/fl_health_charts/spiders/__pycache__/
