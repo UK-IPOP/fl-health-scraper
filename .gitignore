@@ -28,3 +28,6 @@ fl_health_charts/data/
 fl_health_charts/fl_health_charts/__pycache__/
 
 fl_health_charts/fl_health_charts/spiders/__pycache__/
+
+data/datafiles
+data/scraped

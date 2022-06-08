@@ -26,10 +26,13 @@ for file in web_files:
 data_files = Path("data/datafiles").glob("*.csv")
 with open("data/output.csv", "w") as output_file:
     # header
-    output_file.write("Indicator,Measure,Year,Jan-Mar,Apr-Jun,Jul-Sep,Oct-Dec,Annual\n")
+    output_file.write(
+        "County,Year,Indicator,Measure,Year,Jan-Mar,Apr-Jun,Jul-Sep,Oct-Dec,Annual\n"
+    )
     for file in data_files:
+        county, year = file.stem.split("_")
         with open(file, "r") as input_file:
-            in_lines = input_file.readlines()
-            output_file.writelines(in_lines)
+            for line in input_file:
+                output_file.write(f"{county.title()},{year},{line}")
 
 # %%
