@@ -15,4 +15,4 @@ uv run scrapy runspider chart-spider.py -O output.jsonl
 uv run format.py
 ```
 
-Then you can see the output in `fl-health-scraper/data/results.csv`
+Then you can see the output in `data/output.csv`
